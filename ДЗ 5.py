@@ -29,9 +29,18 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
-    def edit_phone(self, old_phone, new_phone):
-        self.remove_phone(old_phone)
-        self.add_phone(new_phone)
+    # # Старий варіанд коду
+    # def edit_phone(self, old_phone, new_phone):
+    #     self.remove_phone(old_phone)
+    #     self.add_phone(new_phone)
+
+    # Внесена зміна в код.
+        def edit_phone(self, old_phone, new_phone):
+            if self.find_phone(old_phone):
+                self.remove_phone(old_phone)
+                self.add_phone(new_phone)
+            else:
+                raise ValueError(f"Phone {old_phone} not found in the record")
 
     def find_phone(self, phone):
         for p in self.phones:
@@ -44,7 +53,13 @@ class Record:
         return f"Contact name: {self.name.value}, phones: {phones_str}"
 
 class AddressBook(UserDict):
+    # def add_record(self, record):
+    #     self.data[record.name.value] = record
+
+    # Внесена друга зміна. Досвідчені програмувальники порадили. Додав як підвищення знання.
     def add_record(self, record):
+        if record.name.value in self.data:
+            raise ValueError(f"Record with name {record.name.value} already exists")
         self.data[record.name.value] = record
 
     def find(self, name):
