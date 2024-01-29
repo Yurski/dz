@@ -92,15 +92,3 @@ class AddressBook:
         for i in range(0, len(records), batch_size):
             yield records[i:i + batch_size]
 
-
-
-
-# Створення нової адресної книги
-book = AddressBook()
-
-# Створення запису для John
-john_record = Record("John", ["1234567890", "5555555555"], "1990-05-15")
-book.add_record(john_record)
-
-# Виведення днів до наступного дня народження для John
-print(f"Days to John's birthday: {john_record.days_to_birthday()}")
